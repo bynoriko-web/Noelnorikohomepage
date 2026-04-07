@@ -612,6 +612,27 @@ a {
     text-align: center;
 }
 
+/* -----------------------------
+   Visibility Utilities (PC/SP 改行用)
+   ----------------------------- */
+.br-pc {
+    display: inline;
+}
+
+.br-sp {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .br-pc {
+        display: none;
+    }
+
+    .br-sp {
+        display: inline;
+    }
+}
+
 /* Media Queries */
 /* Material Symbols Outlined Customization */
 .material-symbols-outlined {
