@@ -1,0 +1,728 @@
+:root {
+    --primary-color: #111111;
+    --secondary-color: #333333;
+    --accent-color: #b89f78;
+    /* エレガントなゴールド/ブロンズ */
+    --bg-color: #ffffff;
+    --bg-alt: #f8f9fa;
+    --text-color: #222222;
+    /* 細めで洗練されたフォント指定（明朝体） */
+    --font-jp: 'Noto Serif JP', serif;
+    --font-en: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-jp);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* タイトルなどは細めで洗練された印象に */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eeeeee;
+    transition: all 0.3s ease;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: var(--font-en);
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.logo span {
+    color: var(--accent-color);
+}
+
+.nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav a {
+    font-family: var(--font-en);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    position: relative;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav a:hover {
+    color: var(--accent-color);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* 複数画像のアニメーション設定 */
+.hero-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    gap: 3vw;
+}
+
+.hero-img {
+    flex: 1;
+    height: 80vh;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    /* 読み込み時に下からふわっと出てきて、その後上下に漂うアニメーション */
+    animation: floatIn 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards, floating 6s ease-in-out infinite alternate;
+}
+
+.hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.hero-img:hover img {
+    transform: scale(1.05);
+}
+
+/* それぞれサイズや高さを変えて動きをバラバラにする */
+.img-1 {
+    margin-top: -15vh;
+    animation-delay: 0.1s, 0.1s;
+}
+
+.img-2 {
+    margin-top: 15vh;
+    height: 90vh;
+    animation-delay: 0.5s, 0.5s;
+    z-index: 2;
+}
+
+.img-3 {
+    margin-top: -5vh;
+    animation-delay: 0.9s, 0.9s;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(17, 17, 17, 0.92) 0%, rgba(17, 17, 17, 0.4) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+
+    100% {
+        opacity: 0.7;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-30px);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    animation: fadeInUp 1.2s ease forwards 0.5s;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-family: var(--font-en);
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.hero-translation {
+    font-family: var(--font-jp);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.hero-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    font-weight: 400;
+    color: var(--accent-color);
+}
+
+/* Sections */
+.section {
+    padding: 120px 5%;
+}
+
+.section-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.section-title {
+    font-family: var(--font-en);
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+}
+
+.section-title span {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.section-desc {
+    font-size: 0.9rem;
+    color: #888;
+    letter-spacing: 0.1em;
+}
+
+/* Service List */
+.service {
+    background-color: var(--bg-alt);
+}
+
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.service-item {
+    background: #ffffff;
+    padding: 40px 50px;
+    /* シャープでかっこいいデザイン（角ばらせる） */
+    border-radius: 0;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+
+.service-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-left-color: var(--accent-color);
+}
+
+.service-number {
+    font-family: var(--font-en);
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15);
+    width: 60px;
+    flex-shrink: 0;
+    transition: all 0.4s ease;
+}
+
+.service-item:hover .service-number {
+    -webkit-text-stroke: 1px var(--accent-color);
+    color: rgba(184, 159, 120, 0.1);
+}
+
+.service-body {
+    flex: 1;
+}
+
+.service-name {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.service-text {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.copyright {
+    font-family: var(--font-en);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: #777;
+}
+
+/* -----------------------------
+   Subpage / Service Details
+   ----------------------------- */
+.subpage {
+    background-color: var(--bg-alt);
+}
+
+.page-content {
+    padding-top: 100px;
+}
+
+.page-header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 80px 5% 60px;
+    text-align: center;
+}
+
+.page-title {
+    font-family: var(--font-en);
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    font-family: var(--font-jp);
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    letter-spacing: 0.1em;
+}
+
+/* Service Link (index) */
+.service-link {
+    display: block;
+    color: inherit;
+}
+
+.service-link .service-item {
+    cursor: pointer;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    letter-spacing: 0.1em;
+    transition: transform 0.3s ease;
+}
+
+.service-link:hover .read-more {
+    transform: translateX(5px);
+}
+
+/* Plan Cards */
+.plan-section {
+    padding: 80px 5%;
+}
+
+.plan-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.plan-card {
+    background: #fff;
+    padding: 40px 30px;
+    border: 1px solid #eee;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+.plan-card.popular {
+    border-top: 4px solid var(--accent-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transform: scale(1.02);
+}
+
+.plan-card.popular:hover {
+    transform: scale(1.02) translateY(-5px);
+}
+
+.plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color);
+    color: #fff;
+    font-family: var(--font-en);
+    font-size: 0.75rem;
+    padding: 4px 15px;
+    letter-spacing: 0.1em;
+}
+
+.plan-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.plan-name {
+    font-family: var(--font-en);
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.plan-name span {
+    font-family: var(--font-jp);
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.plan-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.plan-price {
+    font-family: var(--font-en);
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.plan-features {
+    list-style: none;
+    text-align: left;
+}
+
+.plan-features li {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.plan-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.plan-extra {
+    background: #fff;
+    padding: 50px;
+    border: 1px solid #eee;
+    margin-bottom: 60px;
+}
+
+.extra-box {
+    margin-bottom: 40px;
+}
+
+.extra-box:last-child {
+    margin-bottom: 0;
+}
+
+.extra-box h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.extra-box p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.options ul {
+    list-style: none;
+}
+
+.options li {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.options li .price {
+    font-family: var(--font-en);
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 15px 40px;
+    background: var(--primary-color);
+    color: #fff;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.btn-back:hover {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.back-link {
+    text-align: center;
+}
+
+/* Media Queries */
+/* Material Symbols Outlined Customization */
+.material-symbols-outlined {
+    font-size: inherit;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 48;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .service-item {
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .service-number {
+        font-size: 2.5rem;
+        width: auto;
+    }
+
+    .service-item:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* -----------------------------
+   NLP Page Extra Styles
+   ----------------------------- */
+.intro-box {
+    text-align: center;
+    background: #fff;
+    padding: 60px 40px;
+    border: 1px solid #eee;
+    margin-bottom: 70px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.intro-tag {
+    font-family: var(--font-jp);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 0.1em;
+}
+
+.intro-text {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #444;
+}
+
+.intro-text strong {
+    font-size: 1.15rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.section-title-sub {
+    text-align: center;
+    font-family: var(--font-jp);
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    letter-spacing: 0.1em;
+}
+
+.step-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.step-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-top: 3px solid var(--accent-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    font-family: var(--font-en);
+    font-size: 3.5rem;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent-color);
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.step-card h4 {
+    font-size: 1.15rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.step-card p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.8;
+}
