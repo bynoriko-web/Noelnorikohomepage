@@ -28,6 +28,13 @@ body {
     line-height: 1.8;
     letter-spacing: 0.05em;
     -webkit-font-smoothing: antialiased;
+    word-break: auto-phrase;
+    /* 自動で文節での改行を行う最新のCSS */
+}
+
+/* 文字の途中での改行を強制的に防ぐユーティリティ */
+.ib {
+    display: inline-block;
 }
 
 /* タイトルなどは細めで洗練された印象に */
